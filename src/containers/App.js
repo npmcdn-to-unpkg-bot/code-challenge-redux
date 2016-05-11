@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 // import { connect } from 'react-redux';
 // import { browserHistory } from 'react-router';
 
@@ -7,7 +8,7 @@ const App = (props) => {
 
   return (
     <div>
-      My App
+      <Link to="/challenge">Challenge</Link>
       {children}
     </div>
   );
