@@ -1,10 +1,18 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 import App from './containers/App';
-import CodeArea from './containers/CodeArea';
+import Home from './components/Home';
+import Challenge from './containers/Challenge';
+
+// bring in all challenge files
+import FundamentalsPage from './components/challenges/01-js-fundamentals/Page';
 
 export default (
   <Route path="/" component={App}>
-    <Route path="/challenge" component={CodeArea} />
+    <IndexRoute component={Home} />
+    <Redirect from="challenge" to="/challenge/01-js-fundamentals" />
+    <Route path="/challenge" component={Challenge}>
+      <Route path="01-js-fundamentals" component={FundamentalsPage} />
+    </Route>
   </Route>
 );

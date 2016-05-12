@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CodeMirror from 'codemirror';
+
 // import { connect } from 'react-redux';
 // import { browserHistory } from 'react-router';
 
@@ -41,15 +42,14 @@ class CodeArea extends Component {
   render() {
     return (
       <div>
-        <textarea id="code-editor" />
+        <textarea id="code-editor" defaultValue={this.props.code} />
       </div>
     );
   }
 }
 
 CodeArea.propTypes = {
-  children: PropTypes.node,
+  code: PropTypes.string,
 };
 
-// export default connect(mapStateToProps, {})
 export default CodeArea;
