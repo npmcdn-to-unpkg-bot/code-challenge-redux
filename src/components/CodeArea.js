@@ -16,9 +16,16 @@ import 'codemirror/addon/wrap/hardwrap';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/mode/javascript/javascript';
 
+function runTestsShortcut(e) {
+  if (e.ctrlKey && e.keyCode === 18) {
+    this._testCode();
+  }
+}
+
 class CodeArea extends Component {
   constructor(props) {
     super(props);
+    this.state = this._getInitialState();
   }
 
   componentDidMount() {
@@ -32,17 +39,47 @@ class CodeArea extends Component {
       theme: 'material',
     });
 
-    this.editor.on('change', this._handleChange);
+    window.addEventListener('keypress', runTestsShortcut.bind(this));
+
+    // this.editor.on('change', this._handleChange);
   }
 
-  _handleChange() {
-    console.log('change');
+  componentWillUnmount() {
+    window.removeEventListener('keypress', runTestsShortcut);
+  }
+
+  _getInitialState() {
+    return {
+      err: undefined,
+    }
+  }
+
+  _testCode() {
+    const evalString = `
+      ${this.editor.getValue()}
+      (${this.props.tests.toString()})()
+    `;
+    let err;
+
+    try {
+      eval(evalString);
+    } catch (e) {
+      err = e;
+    } finally {
+      this.setState({
+        err,
+      });
+    }
   }
 
   render() {
     return (
       <div>
         <textarea id="code-editor" defaultValue={this.props.code} />
+        <button onClick={() => this._testCode()}>Submit</button>
+        <div>
+          {this.state.err ? this.state.err.message : ''}
+        </div>
       </div>
     );
   }
@@ -50,6 +87,7 @@ class CodeArea extends Component {
 
 CodeArea.propTypes = {
   code: PropTypes.string,
+  tests: PropTypes.function,
 };
 
 export default CodeArea;
