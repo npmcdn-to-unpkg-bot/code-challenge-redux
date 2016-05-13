@@ -1,15 +1,28 @@
-onmessage = function(e) {
-  var evalErr;
-  var wrappedCode = 'try { ' + e.data + '\n } catch(err) { evalErr = err }';
+onmessage = function(message) {
+  var evalString = message.data.code + '\n(' + message.data.tests + ')()';
 
-  eval(wrappedCode);
-  if (evalErr) {
-    var stack = evalErr.stack;
-    var errMessage = evalErr.message || stack.match(/.*/)[0];     // firefox || chrome
-    var lineNum = evalErr.lineNumber || evalErr.line || stack.match(/<anonymous>:(\d+):\d+/)[1];   // firefox || safari || chrome
-    // var colNum = evalErr.columnNumber || stack.match(/<anonymous>:\d+:(\d+)/)[0];
-    postMessage({ message: errMessage, lineNumber: lineNum });
-  } else {
-    postMessage({ message: null });
+  var err;
+  let pass = false;
+
+  function success() {
+    pass = true;
+  }
+
+  try {
+    eval(evalString);
+  } catch (e) {
+    var stack = e.stack;
+    // firefox || chrome
+    var errMessage = e.message || stack.match(/.*/)[0];
+    // firefox || safari || chrome
+    var lineNum = e.lineNumber || e.line || stack.match(/<anonymous>:(\d+):\d+/)[1];
+    err = { message: errMessage, lineNum };
+  } finally {
+    if (!err && !pass) {
+      err = {
+        message: 'The tests did not complete. You might have a return statement before your code.',
+      };
+    }
+    postMessage({ err });
   }
 };

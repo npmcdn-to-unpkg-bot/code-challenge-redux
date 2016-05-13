@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CodeMirror from 'codemirror';
 
-// import { connect } from 'react-redux';
-// import { browserHistory } from 'react-router';
-
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/addon/dialog/dialog.css';
@@ -16,16 +13,11 @@ import 'codemirror/addon/wrap/hardwrap';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/mode/javascript/javascript';
 
-function runTestsShortcut(e) {
-  if (e.ctrlKey && e.keyCode === 18) {
-    this._testCode();
-  }
-}
-
 class CodeArea extends Component {
   constructor(props) {
     super(props);
-    this.state = this._getInitialState();
+    this.runTestsShortcut = this.runTestsShortcut.bind(this);
+    this.runTests = this.runTests.bind(this);
   }
 
   componentDidMount() {
@@ -39,46 +31,31 @@ class CodeArea extends Component {
       theme: 'material',
     });
 
-    window.addEventListener('keypress', runTestsShortcut.bind(this));
-
-    // this.editor.on('change', this._handleChange);
+    window.addEventListener('keypress', this.runTestsShortcut);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keypress', runTestsShortcut);
+    window.removeEventListener('keypress', this.runTestsShortcut);
   }
 
-  _getInitialState() {
-    return {
-      err: undefined,
+  runTestsShortcut(e) {
+    if (e.ctrlKey && e.keyCode === 18) {
+      this.runTests();
     }
   }
 
-  _testCode() {
-    const evalString = `
-      ${this.editor.getValue()}
-      (${this.props.tests.toString()})()
-    `;
-    let err;
-
-    try {
-      eval(evalString);
-    } catch (e) {
-      err = e;
-    } finally {
-      this.setState({
-        err,
-      });
-    }
+  runTests() {
+    const { testCode, tests } = this.props;
+    testCode(this.editor.getValue(), tests.toString());
   }
 
   render() {
     return (
       <div>
         <textarea id="code-editor" defaultValue={this.props.code} />
-        <button onClick={() => this._testCode()}>Submit</button>
+        <button onClick={this.runTests}>Submit</button>
         <div>
-          {this.state.err ? this.state.err.message : ''}
+          {this.props.err ? this.props.err.message : ''}
         </div>
       </div>
     );
@@ -87,7 +64,9 @@ class CodeArea extends Component {
 
 CodeArea.propTypes = {
   code: PropTypes.string,
-  tests: PropTypes.function,
+  tests: PropTypes.func,
+  testCode: PropTypes.func,
+  err: PropTypes.string,
 };
 
 export default CodeArea;
