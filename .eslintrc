@@ -6,6 +6,8 @@
     "mocha": true
   },
   "globals": {
-    "__dirname": true
+    "__dirname": true,
+    "expect": true,
+    "success": true
   }
 }
