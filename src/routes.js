@@ -9,7 +9,7 @@ import Challenge from './containers/Challenge';
 import FundamentalsPage from './components/challenges/01-js-fundamentals/Page';
 
 export default (
-  <Route path="/" component={App}>
+  <Route path= "/" component={App}>
     <IndexRoute component={Home} />
     <Redirect from="challenge" to="/challenge/01-js-fundamentals" />
     <Route path="/challenge" component={Challenge}>

@@ -8,7 +8,13 @@ class Login extends Component {
 
   render() {
     return (
-      <button>Sign in through GitHub</button>
+      <div>
+        <p>
+          In order to start the challenges, please sign in through GitHub.
+          We'll roll out more authentication options in the future.
+        </p>
+        <a href={process.env.DYNAMO_URI}>Sign in through GitHub</a>
+      </div>
     );
   }
 }

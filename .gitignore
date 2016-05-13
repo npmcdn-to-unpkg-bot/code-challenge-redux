@@ -4,4 +4,4 @@ build/
 *.log
 npm-debug.log*
 client/build/
-env/
+env/private/

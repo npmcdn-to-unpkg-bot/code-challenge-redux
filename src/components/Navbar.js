@@ -1,21 +1,29 @@
 import React, { PropTypes } from 'react';
+import NavLink from './NavLink';
 import { Link } from 'react-router';
 
 const Navbar = props => {
-  console.log(props);
-  const auth = props.user.isLoggedIn ? <Link to="/logout">Logout</Link> : <Link to="/login">Login</Link>;
+  const { isLoggedIn } = props.user;
+
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/challenge">Challenge</Link>
-      </li>
-      <li>
-        {auth}
-      </li>
-    </ul>
+    <nav className="navbar">
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <NavLink to="/challenge">Challenge</NavLink>
+        </li>
+        <li>
+          {isLoggedIn &&
+            <a href={process.env.DYNAMO_URI}>Logout</a>
+          }
+          {!isLoggedIn &&
+            <NavLink to="/login">Login</NavLink>
+          }
+        </li>
+      </ul>
+    </nav>
   );
 };
 

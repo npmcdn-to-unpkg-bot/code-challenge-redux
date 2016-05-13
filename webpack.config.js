@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const env = require('./env/public/development');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -13,6 +14,9 @@ module.exports = {
     publicPath: '/build/',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': env,
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
@@ -25,8 +29,8 @@ module.exports = {
         include: __dirname,
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
+        test: /(\.css|\.scss)$/,
+        loaders: ['style', 'css', 'sass'],
       },
       {
         test: /\.txt$/,

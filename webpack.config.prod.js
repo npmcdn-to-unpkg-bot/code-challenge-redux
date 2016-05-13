@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const env = require('./env/public/production');
 
 module.exports = {
   devtool: 'source-map',
@@ -12,9 +13,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"', // quotation marks around production are important
-      },
+      'process.env': env,
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
