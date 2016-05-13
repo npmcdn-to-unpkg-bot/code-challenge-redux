@@ -1,9 +1,12 @@
-const app = new (require('express'))();
+const express = require('express');
+const path = require('path');
+const app = express();
 const port = 3000;
 
+app.use(express.static(path.join(__dirname, '..', 'client')));
+
 app.use((req, res) => {
-  console.log(__dirname);
-  res.sendFile(`${__dirname}/../client/index.html`);
+  res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
 });
 
 app.listen(port, error => {

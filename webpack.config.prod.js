@@ -7,14 +7,13 @@ module.exports = {
     './src/index',
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'client', 'build'),
     filename: 'bundle.js',
-    publicPath: '/static/',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: '"production"', // quotation marks around production are important
       },
     }),
     new webpack.optimize.DedupePlugin(),
@@ -32,6 +31,14 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
         include: __dirname,
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+      },
+      {
+        test: /\.txt$/,
+        loader: 'raw-loader',
       },
     ],
   },

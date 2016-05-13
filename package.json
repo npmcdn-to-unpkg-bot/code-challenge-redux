@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "node devServer.js",
+    "start-dev": "node devServer.js",
     "start": "node index.js",
-    "build:prod": "webpack -p --config webpack.config.prod.js"
+    "build": "export BABEL_ENV=production; webpack -p --config webpack.config.prod.js"
   },
   "author": "David Petri <petridw@gmail.com> (davidpetri.com)",
   "license": "ISC",
