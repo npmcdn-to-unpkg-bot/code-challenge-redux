@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { testCodeIfNeeded } from '../actions';
+import { testCodeIfNeeded } from '../actions/test';
 import { connect } from 'react-redux';
 import TestStatus from '../components/TestStatus';
 
