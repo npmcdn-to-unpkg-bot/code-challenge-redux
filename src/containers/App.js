@@ -1,20 +1,32 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-// import { browserHistory } from 'react-router';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Navbar from '../components/Navbar';
 
-const App = (props) => {
-  const { children } = props;
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div>
-      <Link to="/challenge">Challenge</Link>
-      {children}
-    </div>
-  );
-};
+  render() {
+    const { children, user } = this.props;
+
+    return (
+      <div>
+        <Navbar user={user} />
+        {children}
+      </div>
+    );
+  }
+}
 
 App.propTypes = {
   children: PropTypes.node,
+  user: PropTypes.object,
 };
 
-export default App;
+function mapStateToProps(state, props) {
+  const { user } = state;
+  return Object.assign({}, props, { user });
+}
+
+export default connect(mapStateToProps)(App);

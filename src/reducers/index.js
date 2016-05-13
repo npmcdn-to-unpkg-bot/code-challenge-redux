@@ -7,20 +7,24 @@ import * as challenges from '../constants/challenges';
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
-export default function user(state = {}, action) {
+const defaultUserState = {
+  isLoggedIn: false,
+};
+
+export default function user(state = defaultUserState, action) {
   switch (action.type) {
     default:
       return state;
   }
 }
 
-const defaultState = {
+const defaultChallengeState = {
   pass: false,
   isExecuting: false,
   err: undefined,
 };
 
-export default function challenge(state = defaultState, action) {
+export default function challenge(state = defaultChallengeState, action) {
   switch (action.type) {
     case SELECT_CHALLENGE:
       if (action.challenge in challenges) {

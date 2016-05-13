@@ -1,9 +1,12 @@
 import React from 'react';
-// import { browserHistory } from 'react-router';
 
 const Home = () => (
   <div>
-    <h1>Home</h1>
+    <h1>Free Codesmith</h1>
+    <p>
+      Welcome to Free Codesmith. Here we offer a variety of JavaScript challenges which will
+      help you to master the core concepts of JavaScript.
+    </p>
   </div>
 );
 

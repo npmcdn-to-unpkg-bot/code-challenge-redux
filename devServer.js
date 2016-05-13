@@ -12,7 +12,6 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output
 app.use(webpackHotMiddleware(compiler));
 
 app.use((req, res) => {
-  console.log('sending index');
   res.sendFile(`${__dirname}/client/index.html`);
 });
 
