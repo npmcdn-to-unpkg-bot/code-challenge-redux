@@ -11,8 +11,17 @@ const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
+app.use('/api/v1', require('./server/middleware/jwtAuth'), require('./server/routes/api/v1'));
+
 app.use((req, res) => {
   res.sendFile(`${__dirname}/client/index.html`);
+});
+
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+  next();
 });
 
 app.listen(port, error => {

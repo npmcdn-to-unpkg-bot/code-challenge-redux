@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/login';
 
@@ -13,6 +13,8 @@ class Login extends Component {
 
   _login() {
     const { dispatch } = this.props;
+    const { router } = this.context;
+
     const child = window.open(
       `${process.env.AUTH_URI}/auth/github?origin=${process.env.ORIGIN_URI}`,
       '',
@@ -20,9 +22,12 @@ class Login extends Component {
     );
     window.addEventListener('message', e => {
       if (e.origin === process.env.AUTH_URI) {
+        // TODO: look into putting this elsewhere, like in an action?
+        localStorage.setItem('cs-token', e.data);
         dispatch(loginUser(e.data));
       }
       child.close();
+      router.push('/challenge');
     }, false);
   }
 
@@ -38,6 +43,10 @@ class Login extends Component {
     );
   }
 }
+
+Login.contextTypes = {
+  router: PropTypes.object,
+};
 
 function mapStateToProps(state, props) {
   const { user } = state;

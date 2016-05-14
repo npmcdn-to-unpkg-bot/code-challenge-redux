@@ -1,4 +1,4 @@
-import { SELECT_CHALLENGE } from '../actions';
+import { SELECT_CHALLENGE } from '../actions/challenge';
 import { START_TEST, PASS_TEST, FAIL_TEST } from '../actions/test';
 import * as challenges from '../constants/challenges';
 

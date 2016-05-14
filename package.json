@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "node devServer.js",
+    "start-dev": "nodemon --watch server devServer.js",
     "start": "node index.js",
     "build": "export BABEL_ENV=production; webpack -p --config webpack.config.prod.js"
   },
   "author": "David Petri <petridw@gmail.com> (davidpetri.com)",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "express-jwt": "^3.4.0",
+    "jsonwebtoken": "^6.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -22,14 +24,15 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "codemirror": "^5.14.2",
-    "css-loader": "^0.23.1",
-    "isomorphic-fetch": "^2.2.1",
     "concurrently": "^2.0.0",
+    "css-loader": "^0.23.1",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.3.0",
+    "isomorphic-fetch": "^2.2.1",
     "node-sass": "^3.7.0",
+    "nodemon": "^1.9.2",
     "raw-loader": "^0.5.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",

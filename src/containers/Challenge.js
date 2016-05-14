@@ -16,6 +16,8 @@ class Challenge extends Component {
   }
 
   render() {
+    const { user, challenge } = this.props;
+    // TODO: Lock this view down when not logged in
     return (
       <div>
         <h1>{this.props.params.name}</h1>
@@ -23,9 +25,9 @@ class Challenge extends Component {
           testCode: this.testCode,
         })}
         <TestStatus
-          pass={this.props.pass}
-          err={this.props.err}
-          isExecuting={this.props.isExecuting}
+          pass={challenge.pass}
+          err={challenge.err}
+          isExecuting={challenge.isExecuting}
         />
       </div>
     );
@@ -37,14 +39,16 @@ Challenge.propTypes = {
   name: PropTypes.string,
   params: PropTypes.object,
   dispatch: PropTypes.func,
-  pass: PropTypes.bool,
-  isExecuting: PropTypes.bool,
-  err: PropTypes.objectOf(PropTypes.string),
+  challenge: PropTypes.object,
+  user: PropTypes.object,
+  // pass: PropTypes.bool,
+  // isExecuting: PropTypes.bool,
+  // err: PropTypes.objectOf(PropTypes.string),
 };
 
 function mapStateToProps(state, props) {
-  const { challenge } = state;
-  return Object.assign({}, props, challenge);
+  // const { challenge, user } = state;
+  return Object.assign({}, props, state);
 }
 
 export default connect(mapStateToProps)(Challenge);

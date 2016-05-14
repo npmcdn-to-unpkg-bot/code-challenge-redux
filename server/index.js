@@ -5,8 +5,17 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, '..', 'client')));
 
+app.use('/api/v1', require('./middleware/jwtAuth'), require('./routes/api/v1'));
+
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
+});
+
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+  next();
 });
 
 app.listen(port, error => {

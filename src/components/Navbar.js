@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
-import NavLink from './NavLink';
 import { Link } from 'react-router';
+import NavLink from './NavLink';
+import LogoutButton from './LogoutButton';
+
 
 const Navbar = props => {
-  const { isLoggedIn } = props.user;
+  const { user, logout } = props;
 
   return (
     <nav className="navbar">
@@ -15,11 +17,11 @@ const Navbar = props => {
           <NavLink to="/challenge">Challenge</NavLink>
         </li>
         <li>
-          {isLoggedIn &&
-            <a href={process.env.DYNAMO_URI}>Logout</a>
-          }
-          {!isLoggedIn &&
+          {!user.isLoggedIn &&
             <NavLink to="/login">Login</NavLink>
+          }
+          {user.isLoggedIn &&
+            <LogoutButton logout={logout}>Logout</LogoutButton>
           }
         </li>
       </ul>
@@ -29,6 +31,7 @@ const Navbar = props => {
 
 Navbar.propTypes = {
   user: PropTypes.object,
+  logout: PropTypes.func,
 };
 
 export default Navbar;
