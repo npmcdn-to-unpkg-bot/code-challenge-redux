@@ -1,8 +1,9 @@
-## Free-Codesmith
+## code-challenge-redux
 
-### Dev Setup
-- Until a better approach is found, you must have `auth-microservice` running locally in order to login when running a local server
-  - this means you need to install DynamoDB on your machine and have a dynamo server instance running, just like if it was Mongo
+### to do
+- fix GitHub oauth
+- add a few challenges
+- remember progress
 
 ### Windows Quirks
 - To run the `build` script, change `export` to `set`. Remember to change it back before committing.
