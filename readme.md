@@ -1,6 +1,6 @@
 ## code-challenge-redux
 
-Watned to practice with redux by implementing a framework for an online learn to code challenge.
+Practicing with redux by implementing a framework for an online learn to code challenge.
 
 ### to do
 - fix GitHub oauth
