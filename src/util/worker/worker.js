@@ -3,7 +3,7 @@ onmessage = function(message) {
 
   var err;
   let pass = false;
-  importScripts('https://npmcdn.com/expect@1.20.1/umd/expect.min.js');
+  importScripts('https://unpkg.com/expect@1.20.1/umd/expect.min.js');
 
   function success() {
     pass = true;
